@@ -1,0 +1,23 @@
+{
+  "name": "find-my-phone-alexa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npm run deploy-manifest && npm run deploy-model && npm run deploy-function",
+    "deploy-function": "serverless deploy",
+    "deploy-manifest": "serverless alexa update",
+    "deploy-model": "serverless alexa build",
+    "auth": "serverless alexa auth",
+    "create-skill": "serverless alexa create -n \"Find My iPhone\" -l \"en-US\" -t \"custom\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless": "^1.69.0",
+    "serverless-alexa-skills": "^0.1.0"
+  },
+  "dependencies": {
+    "find-my-iphone": "^1.1.1"
+  }
+}

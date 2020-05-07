@@ -1,0 +1,51 @@
+service: find-my-iphone-alexa
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+
+custom:
+  alexa:
+    skills:
+      - id: ${env:FIND_MY_IPHONE_SKILL_ID}
+        manifest:
+          publishingInformation:
+            locales:
+              en-US:
+                name: Find My iPhone
+          apis:
+            custom: {}
+          manifestVersion: "1.0"
+        models:
+          en-US:
+            interactionModel:
+              languageModel:
+                invocationName: find my iphone
+                intents:
+                  - name: AMAZON.CancelIntent
+                    samples: []
+                  - name: AMAZON.HelpIntent
+                    samples: []
+                  - name: AMAZON.StopIntent
+                    samples: []
+                  - name: FindMyiPhoneIntent
+                    samples:
+                      - "{User}"
+                      - "to ping {User}"
+                      - "to call {User}"
+                      - "to find {User} phone"
+                      - "to find my phone"
+                    slots:
+                      - name: User
+                        type: AMAZON.US_FIRST_NAME
+
+functions:
+  findMyiPhone:
+    handler: handler.findMyiPhone
+    events:
+      - alexaSkill: ${env:FIND_MY_IPHONE_SKILL_ID}
+
+plugins:
+  - serverless-alexa-skills
